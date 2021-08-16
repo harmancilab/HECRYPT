@@ -3,7 +3,12 @@
 This repository contains the documentation for HECRYPT -- genotype encryption/decryption tool for secure imputation. HECRYPT is a command line tool that runs on Linux systems.
 
 ## Build ##
-You can download HECRYPT from [here](https://secureomics.org/Web/HECRYPT.bin). HECRYPT requires zlib libraries to be installed, including gzip so that compressed files can be used as input.
+You can download HECRYPT from [here](https://secureomics.org/Web/./HECRYPT.bin). HECRYPT requires zlib libraries to be installed, including gzip so that compressed files can be used as input.
+
+After downloading HECRPT, you need to set it as an executable:
+```
+chmod 755 HECRPT.bin
+```
 
 An example VCF file is included under "data/" directory.
 
@@ -16,7 +21,7 @@ To process a VCF file, we run following commands on command line:
 ```
 rm -f -r intermediate
 mkdir intermediate
-./bin/HECRYPT -preprocess_tags_genotypes --VCF data/example.vcf.gz --array Illumina --interim intermediate
+./HECRYPT.bin -preprocess_tags_genotypes --VCF data/example.vcf.gz --array Illumina --interim intermediate
 ```
 After running the preprocessing command, HECRYPT reads and separates the VCF file into chromosomes, and converts them to a format that can be quickly loaded. These intermediate results are written under the directory that is specific by "--interim" option. 
 Also, the repeated entries are removed from the 
