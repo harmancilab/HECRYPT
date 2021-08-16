@@ -7,7 +7,7 @@ You can download HECRYPT from [here](https://secureomics.org/Web/./HECRYPT.bin).
 
 After downloading HECRPT, you need to set it as an executable:
 ```
-chmod 755 HECRPT.bin
+chmod 755 HECRPYT.bin
 ```
 
 An example VCF file is included under "data/" directory.
@@ -29,7 +29,7 @@ Also, the repeated entries are removed from the
 ## Key Generation:
 After VCF is preprocessed, we generate the public/private keys:
 ```
-HECRYPT -generate_key_pair --key_prefix my_key
+./HECRYPT.bin -generate_key_pair --key_prefix my_key
 ```
 This command gnenerates and saves two files: 
 1. "my_key.public_key": Contains the public key, which is needed for encryption of the tag genotype data.
@@ -40,7 +40,7 @@ You can change the prefix of these keys using the "--key_prefix" option of "-gen
 ## Encryption of Genotypes:
 After keys are generated, we encrypt the genotypes:
 ```
-HECRYPT -encrypt_tag_genotypes --key_prefix my_key --interim_dir intermediate
+./HECRYPT.bin -encrypt_tag_genotypes --key_prefix my_key --interim_dir intermediate
 ```
 Here, "--key_prefix" and "--interim_dir" must match the key prefix from key generation and the name of the directory that we stored the preprocessed data.
 
@@ -50,7 +50,7 @@ The encryption writes the encrypted genotypes to the same directory as the inter
 The intermediate directory needs to be cleaned before submission to remove the unencrypted 
 genotype information that is written while preprocessing. For this, we run:
 ```
-HECRYPT -clean_encrypted_dir intermediate
+./HECRYPT.bin -clean_encrypted_dir intermediate
 ```
 This command deletes the intermediate files that contain plaintext information. The remaining files include:
 1. Sample id's (anonymized), 
@@ -77,7 +77,7 @@ After downloading the imputed genotypes, we run following command:
 ```
 tar -xvjf RESULTS.tar.bz2
 mkdir decrypted_genotypes
-HECRYPT -decrypt_target_genotypes --key_prefix my_key --enc_geno analysis/RESULTS --op_dir decrypted_genotypes
+./HECRYPT.bin -decrypt_target_genotypes --key_prefix my_key --enc_geno analysis/RESULTS --op_dir decrypted_genotypes
 ```
 This command decrypts and write the results under "decrypted_genotypes/" for each chromosome separately, where each of them are named "1.imp, 2.imp, ..., 22.imp".
 
