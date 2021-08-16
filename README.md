@@ -10,6 +10,25 @@ After downloading HECRPT, you need to set it as an executable:
 chmod 755 HECRPYT.bin
 ```
 
+### Docker Usage
+This executable may fail on certain installations of Linux. In this case, an alternative is to use the docker image. 
+
+To run the docker container, you can use following:
+```
+docker pull secureomics/hecrypt:v5
+docker run -v $PWD:/host -i -t secureomics/hecrypt:v5 /bin/bash
+```
+
+When the container starts, you can see that HECRYPT.bin is located under root directory /. You can copy your genotype data into a running container. For this, open a new command line (docker run command is running as above) and run following:
+```
+# Following returns the list of running containers, choose the container id.
+docker container ls
+
+# Use the container id in the command below:
+docker cp genotypes.vcf.gz [container id]:/
+```
+You can customize where the data is copies. After copying the genotype data, you can continue using the container to process and encrypt it.
+
 An example VCF file is included under "data/" directory.
 
 ## Preprocessing gVCF File that contains the Tag Genotypes ##
