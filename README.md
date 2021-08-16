@@ -21,7 +21,7 @@ To process a VCF file, we run following commands on command line:
 ```
 rm -f -r intermediate
 mkdir intermediate
-./HECRYPT.bin -preprocess_tags_genotypes --VCF data/example.vcf.gz --array Illumina --interim intermediate
+./HECRYPT.bin -preprocess_tags_genotypes --VCF data/test_data.vcf.gz --array Illumina --interim intermediate
 ```
 After running the preprocessing command, HECRYPT reads and separates the VCF file into chromosomes, and converts them to a format that can be quickly loaded. These intermediate results are written under the directory that is specific by "--interim" option. 
 Also, the repeated entries are removed from the 
