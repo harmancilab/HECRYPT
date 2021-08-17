@@ -54,7 +54,7 @@ After VCF is preprocessed, we generate the public/private keys:
 ```
 This command gnenerates and saves two files: 
 1. "my_key.public_key": Contains the public key, which is needed for encryption of the tag genotype data.
-2. "my_key.public_key": Contains the private key, which is needed for decryption of the imputed variant genotyes.
+2. "my_key.private_key": Contains the private key, which is needed for decryption of the imputed variant genotyes.
 
 You can change the prefix of these keys using the "--key_prefix" option of "-generate_key_pair" option.
 
@@ -74,7 +74,7 @@ genotype information that is written while preprocessing. For this, we run:
 ./HECRYPT.bin -clean_encrypted_dir intermediate
 ```
 This command deletes the intermediate files that contain plaintext information. The remaining files include:
-1. Sample id's (anonymized), 
+1. Sample id's (anonymized as "sample_[#]"), 
 2. Tag coordinates, 
 3. Chromosome identifiers list, 
 4. Encrypted genotypes, named in the format [chr_id].enc, 
