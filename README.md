@@ -27,7 +27,7 @@ docker container ls
 # Use the container id in the command below:
 docker cp genotypes.vcf.gz [container id]:/
 ```
-You can customize where the data is copies. After copying the genotype data, you can continue using the container to process and encrypt it.
+You can customize where the data is copied. After copying the genotype data, you can continue using the container to process and encrypt it.
 
 An example VCF file is included under "data/" directory.
 
@@ -44,6 +44,8 @@ mkdir intermediate
 ```
 After running the preprocessing command, HECRYPT reads and separates the VCF file into chromosomes, and converts them to a format that can be quickly loaded. These intermediate results are written under the directory that is specific by "--interim" option. 
 Also, the repeated entries are removed from the 
+
+**Currently, HECRYPT can process at most 1000 samples in the VCF file. If there are more than 1000 samples, HECRYPT will write an error message and exit.**
 
 ## Key Generation:
 After VCF is preprocessed, we generate the public/private keys:
