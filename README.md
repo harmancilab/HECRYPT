@@ -43,7 +43,7 @@ mkdir intermediate
 ./HECRYPT.bin -preprocess_tags_genotypes --VCF data/test_data.vcf.gz --array Illumina --interim intermediate
 ```
 After running the preprocessing command, HECRYPT reads and separates the VCF file into chromosomes, and converts them to a format that can be quickly loaded. These intermediate results are written under the directory that is specific by "--interim" option. 
-Also, the repeated entries are removed from the 
+Also, the repeated entries are removed from the VCF file. This is necessary to exclude the redundant tag genotypes or multi-allelic variants, which are not reliably used in imputation models, yet.
 
 **Currently, HECRYPT can process at most 1000 samples in the VCF file. If there are more than 1000 samples, HECRYPT will write an error message and exit.**
 
