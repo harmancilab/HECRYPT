@@ -43,6 +43,7 @@ mkdir intermediate
 ./HECRYPT.bin -preprocess_tags_genotypes --VCF data/test_data.vcf.gz --array Illumina --interim intermediate
 ```
 After running the preprocessing command, HECRYPT reads and separates the VCF file into chromosomes, and converts them to a format that can be quickly loaded. These intermediate results are written under the directory that is specific by "--interim" option. 
+
 Also, the repeated entries are removed from the VCF file. This is necessary to exclude the redundant tag genotypes or multi-allelic variants, which are not reliably used in imputation models, yet.
 
 **Currently, HECRYPT can process at most 1000 samples in the VCF file. If there are more than 1000 samples, HECRYPT will write an error message and exit.**
@@ -52,7 +53,7 @@ After VCF is preprocessed, we generate the public/private keys:
 ```
 ./HECRYPT.bin -generate_key_pair --key_prefix my_key
 ```
-This command gnenerates and saves two files: 
+This command generates and saves two files: 
 1. "my_key.public_key": Contains the public key, which is needed for encryption of the tag genotype data.
 2. "my_key.private_key": Contains the private key, which is needed for decryption of the imputed variant genotyes.
 
@@ -90,8 +91,8 @@ After starting upload, we recommended to copy the keys to a safe place. We also 
 After this, you can navigate to https://secureomics.org/Web and start uploading the file named "intermediate.tar.bz2". Note that the name of the directory is not relevant since it is never sent to the server. However, server keeps track of a simple hash of this file for resuming interrupted file uploads. This is done to ensure that a different file is not uploaded after a failed upload attempt is being resumed.
 
 ## Downloading data 
-After imputation is submitted, the server performs imputation. After the results are available for download, a button is displayed where the results can be downloaded from. 
-The downloaded file has the named "RESULTS.tar.bz2" by default.
+After imputation is submitted, the server performs imputation. When the results are available for download, a button is displayed where the results can be downloaded from. 
+The downloaded file has the name "RESULTS.tar.bz2" by default.
 
 ## Decryption of imputed target variant genotypes
 After downloading the imputed genotypes, we run following command:
