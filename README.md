@@ -5,9 +5,9 @@ This repository contains the documentation for HECRYPT -- genotype encryption/de
 ## Build ##
 You can download HECRYPT from [here](https://secureomics.org/Web/./HECRYPT.bin). HECRYPT requires zlib libraries to be installed, including gzip so that compressed files can be used as input.
 
-After downloading HECRPT, you need to set it as an executable:
+After downloading HECRYPT, you need to set it as an executable:
 ```
-chmod 755 HECRPYT.bin
+chmod 755 HECRYPT.bin
 ```
 
 ### Docker Usage
