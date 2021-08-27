@@ -3,7 +3,7 @@
 This repository contains the documentation for HECRYPT -- genotype encryption/decryption tool for secure imputation. HECRYPT is a command line tool that runs on Linux systems.
 
 ## Build ##
-You can download HECRYPT from [here](https://secureomics.org/Web/./HECRYPT.bin). HECRYPT requires zlib libraries to be installed, including gzip so that compressed files can be used as input.
+You can download HECRYPT from [here](https://secureomics.org/Main/Web/HECRYPT.bin). HECRYPT requires gsl and zlib libraries to be installed, including gzip so that compressed files can be used as input.
 
 After downloading HECRYPT, you need to set it as an executable:
 ```
@@ -88,7 +88,7 @@ tar -cvjf intermediate.tar.bz2 intermediate
 ```
 After starting upload, we recommended to copy the keys to a safe place. We also recommend saving your online folder identifier with the private key.
 
-After this, you can navigate to https://secureomics.org/Web and start uploading the file named "intermediate.tar.bz2". Note that the name of the directory is not relevant since it is never sent to the server. However, server keeps track of a simple hash of this file for resuming interrupted file uploads. This is done to ensure that a different file is not uploaded after a failed upload attempt is being resumed.
+After this, you can navigate to https://secureomics.org/OpenImpute and start uploading the file named "intermediate.tar.bz2". Note that the name of the directory is not relevant since it is never sent to the server. However, server keeps track of a simple hash of this file for resuming interrupted file uploads. This is done to ensure that a different file is not uploaded after a failed upload attempt is being resumed.
 
 ## Downloading data 
 After imputation is submitted, the server performs imputation. When the results are available for download, a button is displayed where the results can be downloaded from. 
