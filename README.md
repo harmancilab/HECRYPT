@@ -3,7 +3,7 @@
 This repository contains the documentation for HECRYPT -- genotype encryption/decryption tool for secure imputation. HECRYPT is a command line tool that runs on Linux systems.
 
 ## Build ##
-You can download HECRYPT from [here](https://secureomics.org/Main/Web/HECRYPT.bin). HECRYPT requires gsl and zlib libraries to be installed, including gzip so that compressed files can be used as input.
+You can download HECRYPT from [here](https://secureomics.org/Main/Web/HECRYPT.bin). HECRYPT requires gzip, tar executables; and gsl, zlib libraries to be installed, including gzip so that compressed files can be used as input.
 
 After downloading HECRYPT, you need to set it as an executable:
 ```
@@ -17,6 +17,9 @@ To run the docker container, you can use following:
 ```
 docker pull secureomics/hecrypt:v5
 docker run -v $PWD:/host -i -t secureomics/hecrypt:v5 /bin/bash
+
+# gzip and tar are needed to compress/decompress data:
+yum -y install gzip tar
 ```
 
 When the container starts, you can see that HECRYPT.bin is located under root directory /. You can copy your genotype data into a running container. For this, open a new command line (docker run command is running as above) and run following:
@@ -40,11 +43,17 @@ To process a VCF file, we run following commands on command line:
 ```
 rm -f -r intermediate
 mkdir intermediate
-./HECRYPT.bin -preprocess_tags_genotypes --VCF data/test_data.vcf.gz --array Illumina --interim intermediate
+./HECRYPT.bin -preprocess_tags_genotypes --VCF data/tag_data.vcf.gz --array Illumina --interim intermediate
 ```
 After running the preprocessing command, HECRYPT reads and separates the VCF file into chromosomes, and converts them to a format that can be quickly loaded. These intermediate results are written under the directory that is specific by "--interim" option. 
 
-Also, the repeated entries are removed from the VCF file. This is necessary to exclude the redundant tag genotypes or multi-allelic variants, which are not reliably used in imputation models, yet.
+In case HECRYPT complains that there are more than 1000 individuals, you can filter the first 1000 individuals:
+```
+gzip -cd tag_data.vcf.gz | cut -f1-1009 | gzip > tag_data_smaller.vcf.gz
+```
+Use the previous command to process the tag genotypes in 'tag_data_smaller.vcf.gz'.
+
+The repeated entries are removed from the VCF file. This is necessary to exclude the redundant tag genotypes or multi-allelic variants, which are not reliably used in imputation models, yet.
 
 **Currently, HECRYPT can process at most 1000 samples in the VCF file. If there are more than 1000 samples, HECRYPT will write an error message and exit.**
 
