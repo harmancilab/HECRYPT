@@ -1,9 +1,13 @@
 # HECRYPT: 
 
-This repository contains the documentation for HECRYPT -- genotype encryption/decryption tool for secure imputation. HECRYPT is a command line tool that runs on Linux systems.
+This repository contains the documentation for HECRYPT -- genotype encryption/decryption tool for starting imputation with secure imputation server. HECRYPT is a command line tool that runs on Linux systems.
+
+This repository also contains the documentation and example data (under "data/") including VCF data, encrypted data, and the encryption/decryption keys. 
 
 ## Build ##
-You can download HECRYPT from [here](https://secureomics.org/Main/Web/HECRYPT.bin). HECRYPT requires gzip, tar executables; and gsl, zlib libraries to be installed, including gzip so that compressed files can be used as input.
+
+## Standalone Executable ##
+Alternatively, you can download HECRYPT from [here](https://secureomics.org/Main/Web/HECRYPT.bin). HECRYPT requires gzip, tar executables; and gsl, zlib libraries to be installed.
 
 After downloading HECRYPT, you need to set it as an executable:
 ```
@@ -13,26 +17,32 @@ chmod 755 HECRYPT.bin
 ### Docker Usage
 This executable may fail on certain installations of Linux. In this case, an alternative is to use the docker image. 
 
-To run the docker container, you can use following:
+You can run the docker container as following:
 ```
 docker pull secureomics/hecrypt:v5
 docker run -v $PWD:/host -i -t secureomics/hecrypt:v5 /bin/bash
 
-# gzip and tar are needed to compress/decompress data:
-yum -y install gzip tar
+# gzip/bzip2, gsl and tar are needed to compress/decompress data:
+yum -y install gzip bzip2 tar gsl
 ```
 
-When the container starts, you can see that HECRYPT.bin is located under root directory /. You can copy your genotype data into a running container. For this, open a new command line (docker run command is running as above) and run following:
+When the container starts, you should be able to see that HECRYPT.bin is located under root directory /. You can copy your genotype data into a running container. For this, open a new command line (docker run command is running as above) and run following:
 ```
 # Following returns the list of running containers, choose the container id.
 docker container ls
 
 # Use the container id in the command below:
-docker cp genotypes.vcf.gz [container id]:/
+docker cp data/tag_data.vcf.gz [container id]:/
 ```
 You can customize where the data is copied. After copying the genotype data, you can continue using the container to process and encrypt it.
 
-An example VCF file is included under "data/" directory.
+**Please make sure to make a copy of the private key while working within docker container.**
+
+### Example Dataset
+
+We processed 3000 tag SNVs on chromosomes 18, 19, 20 and generated an example VCF file is included under "data/" directory. 
+
+In this directory there are the intermediate encrypted data (intermediate.tar.bz2) that can be uploaded to server directly. Also, the public/private keys are included for decrypting the results.
 
 ## Preprocessing gVCF File that contains the Tag Genotypes ##
 HECRYPT accepts a [VCF](https://samtools.github.io/hts-specs/VCFv4.2.pdf) formatted file that contains the variants and sample genotypes (starting from the 10th column of the file). This VCF file contains the genotypes of the tag variants that are used in predicting missing target variants in the population panel.
@@ -64,7 +74,7 @@ After VCF is preprocessed, we generate the public/private keys:
 ```
 This command generates and saves two files: 
 1. "my_key.public_key": Contains the public key, which is needed for encryption of the tag genotype data.
-2. "my_key.private_key": Contains the private key, which is needed for decryption of the imputed variant genotyes.
+2. "my_key.private_key": Contains the private key, which is needed for decryption of the imputed variant genotypes.
 
 You can change the prefix of these keys using the "--key_prefix" option of "-generate_key_pair" option.
 
@@ -97,7 +107,7 @@ tar -cvjf intermediate.tar.bz2 intermediate
 ```
 After starting upload, we recommended to copy the keys to a safe place. We also recommend saving your online folder identifier with the private key.
 
-After this, you can navigate to https://secureomics.org/OpenImpute and start uploading the file named "intermediate.tar.bz2". Note that the name of the directory is not relevant since it is never sent to the server. However, server keeps track of a simple hash of this file for resuming interrupted file uploads. This is done to ensure that a different file is not uploaded after a failed upload attempt is being resumed.
+After this, you can navigate to https://secureomics.org/OpenImpute and start uploading the file named "intermediate.tar.bz2". Note that the name of the file is not relevant since it is never sent to the server. However, server keeps track of a simple hash of this file for resuming interrupted file uploads. This is done to ensure that a different file is not uploaded after a failed upload attempt is being resumed.
 
 ## Downloading data 
 After imputation is submitted, the server performs imputation. When the results are available for download, a button is displayed where the results can be downloaded from. 
