@@ -5,6 +5,20 @@ This repository contains the documentation for HECRYPT -- genotype encryption/de
 This repository also contains the documentation and example data (under "data/") including VCF data, encrypted data, and the encryption/decryption keys. 
 
 ## Build ##
+To build HECRYPT from source, we first build the seal library:
+```
+cd external
+chmod 755 install.sh
+./install.sh
+```
+The compilation process requires CMAKE as a dependency. 
+
+After seal library is built, we build HECRYPT:
+```
+cd Code
+make
+```
+This command builds HECRYPT_Client.bin under Code/bin/ directory.
 
 ## Standalone Executable ##
 Alternatively, you can download HECRYPT from [here](https://secureomics.org/Main/Web/HECRYPT.bin). HECRYPT requires gzip, tar executables; and gsl, zlib libraries to be installed.
