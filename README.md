@@ -17,8 +17,9 @@ After seal library is built, we build HECRYPT:
 ```
 cd Code
 make
+mv bin/HECRYPT_Client.bin bin/HECRYPT.bin
 ```
-This command builds HECRYPT_Client.bin under Code/bin/ directory.
+This command builds HECRYPT.bin under Code/bin/ directory.
 
 ## Standalone Executable ##
 Alternatively, you can download HECRYPT from [here](https://secureomics.org/Main/Web/HECRYPT.bin). HECRYPT requires gzip, tar executables; and gsl, zlib libraries to be installed.
